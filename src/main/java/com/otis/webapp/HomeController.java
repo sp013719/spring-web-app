@@ -1,9 +1,7 @@
 package com.otis.webapp;
 
 import java.text.DateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -40,6 +38,16 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "home";
+	}
+
+	@RequestMapping(value = "/json", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<Object> getJson() {
+		final Map<String, Object> dataBag = new HashMap<>();
+		dataBag.put("cartID", Math.random());
+		dataBag.put("lineItems", Arrays.asList("item1", "item2"));
+
+		return new ResponseEntity<Object>(dataBag, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/post", method = RequestMethod.GET)
